@@ -7,10 +7,7 @@ var mongoose = require('mongoose')
 
 var app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-mongoose.Promise = require('bluebird')
+mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/school', { useMongoClient: true });
 mongoose.set('debug', true);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));

@@ -6,13 +6,18 @@ var StudentSchema = new Schema({
         type: String,
         lowercase: true,
         unique: true,
-        required: [true, "can't be blank"],
-        match: [/\S+@\S+\.\S+/, 'is invalid'],
+        required: [true, "student email can't be blank"],
+        match: [/\S+@\S+\.\S+/, "student email is invalid"],
         index: true
     },
 
-    suspended: Boolean,
+    suspended: { type: Boolean, default: false }
 
 }, { runSettersOnQuery: true });
+
+StudentSchema.methods.suspend = function () {
+    this.suspended = true;
+    return this.save();
+}
 
 module.exports = mongoose.model('Student', StudentSchema);

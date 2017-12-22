@@ -6,9 +6,9 @@ var TeacherSchema = new Schema({
         type: String,
         lowercase: true,
         unique: true,
-        required: [true, "can't be blank"],
-        match: [/\S+@\S+\.\S+/, 'is invalid'],
-        index:true
+        required: [true, "teacher email can't be blank"],
+        match: [/\S+@\S+\.\S+/, 'teacher email is invalid'],
+        index: true
     },
 
     students: [{
