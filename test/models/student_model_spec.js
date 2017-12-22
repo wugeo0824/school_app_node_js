@@ -1,9 +1,9 @@
-var chai = require('chai');
-var expect = chai.expect;
+const chai = require('chai');
+const expect = chai.expect;
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var StudentModel = require('../../models/Student');
+const StudentModel = require('../../models/Student');
 
 describe('student model', function () {
 
@@ -27,7 +27,7 @@ describe('student model', function () {
     });
 
     it('should not save without an email', function (done) {
-        var studentWithoutEmail = new StudentModel();
+        const studentWithoutEmail = new StudentModel();
         studentWithoutEmail.save(function (err, student) {
             expect(err).to.exist;
             expect(err.errors.email.name).to.equal('ValidatorError');
@@ -36,7 +36,7 @@ describe('student model', function () {
     });
 
     it('should not save if email is invalid', function (done) {
-        var studentInvalidEmail = new StudentModel({ email: 'invalid email' });
+        const studentInvalidEmail = new StudentModel({ email: 'invalid email' });
         studentInvalidEmail.save(function (err, student) {
             expect(err).to.exist;
             expect(err.errors.email.name).to.equal('ValidatorError');
@@ -46,7 +46,7 @@ describe('student model', function () {
 
     it('should save if email valid', function (done) {
         const validEmail = "valid@email.this";
-        var studentValid = new StudentModel({ email: validEmail });
+        const studentValid = new StudentModel({ email: validEmail });
 
         studentValid.save(function (err, student) {
             expect(err).to.not.exist;
@@ -57,7 +57,7 @@ describe('student model', function () {
 
     it('should not be suspended by default', function (done) {
         const validEmail = "valid@email.this";
-        var studentValid = new StudentModel({ email: validEmail });
+        const studentValid = new StudentModel({ email: validEmail });
 
         studentValid.save(function (err, student) {
             expect(student.suspended).to.equal(false);
@@ -67,7 +67,7 @@ describe('student model', function () {
 
     it('should be suspended when suspend is called', function (done) {
         const validEmail = "valid@email.this";
-        var studentValid = new StudentModel({ email: validEmail });
+        const studentValid = new StudentModel({ email: validEmail });
 
         studentValid.save()
             .then(function (student) {

@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var TeacherModel = require('../models/Teacher');
 var StudentModel = require('../models/Student');
 
+mongoose.Promise = require('bluebird');
+
 describe("integration tests", function () {
 
     before(function (done) {

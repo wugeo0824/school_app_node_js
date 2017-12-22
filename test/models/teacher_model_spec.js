@@ -1,10 +1,10 @@
-var chai = require('chai');
-var expect = chai.expect;
+const chai = require('chai');
+const expect = chai.expect;
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var TeacherModel = require('../../models/Teacher');
-var StudentModel = require('../../models/Student');
+const TeacherModel = require('../../models/Teacher');
+const StudentModel = require('../../models/Student');
 
 describe('teacher model', function () {
 
@@ -30,7 +30,7 @@ describe('teacher model', function () {
     });
 
     it('should not save without an email', function (done) {
-        var teacherWithoutEmail = new TeacherModel();
+        const teacherWithoutEmail = new TeacherModel();
         teacherWithoutEmail.save(function (err, teacher) {
             expect(err).to.exist;
             expect(err.errors.email.name).to.equal('ValidatorError');
@@ -39,7 +39,7 @@ describe('teacher model', function () {
     });
 
     it('should not save if email is invalid', function (done) {
-        var teacherInvalidEmail = new TeacherModel({ email: 'invalid email' });
+        const teacherInvalidEmail = new TeacherModel({ email: 'invalid email' });
         teacherInvalidEmail.save(function (err, teacher) {
             expect(err).to.exist;
             expect(err.errors.email.name).to.equal('ValidatorError');
@@ -49,7 +49,7 @@ describe('teacher model', function () {
 
     it('should save if email valid', function (done) {
         const validEmail = "valid@email.this";
-        var teacherValid = new TeacherModel({ email: validEmail });
+        const teacherValid = new TeacherModel({ email: validEmail });
 
         teacherValid.save(function (err, teacher) {
             expect(err).to.not.exist;
@@ -62,7 +62,7 @@ describe('teacher model', function () {
         const validEmail = "valid@email.this";
         const studentEmail = "student@email.com";
         const student = new StudentModel({ email: studentEmail })
-        var teacherValid = new TeacherModel({ email: validEmail, students: [ student ] });
+        const teacherValid = new TeacherModel({ email: validEmail, students: [ student ] });
 
         teacherValid.save(function (err, teacher) {
             expect(err).to.not.exist;
