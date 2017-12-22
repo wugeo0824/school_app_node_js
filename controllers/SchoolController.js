@@ -7,7 +7,7 @@ const badRequest = ResponseHelper.badRequest;
 const handleError = ResponseHelper.handleError;
 const successWithJsonBody = ResponseHelper.successWithJsonBody;
 
-const schoolService = require('../services/schoolService');
+const schoolService = require('../services/schoolservice');
 
 const Promise = require('bluebird');
 

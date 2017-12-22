@@ -10,7 +10,7 @@ describe('teacher model', function () {
 
     before(function (done) {
         mongoose.disconnect();
-        mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+        mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
         mongoose.connection.once('connected', () => {
             done();

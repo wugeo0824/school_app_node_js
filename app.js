@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const app = express();
 
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/school', { useMongoClient: true });
+mongoose.connect('mongodb://mongo:27017/school', { useMongoClient: true });
 mongoose.set('debug', true);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 

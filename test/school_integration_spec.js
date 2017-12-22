@@ -13,7 +13,7 @@ describe("integration tests", function () {
 
     before(function (done) {
         mongoose.disconnect();
-        mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+        mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
         mongoose.connection.once('connected', () => {
             done();
         }).on('error', function (error) {
