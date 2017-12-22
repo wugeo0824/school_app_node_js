@@ -1,4 +1,4 @@
-### SCHOOL APP in Node Js
+# SCHOOL APP in Node Js
 
 ## Run in docker container
 1. install Docker
