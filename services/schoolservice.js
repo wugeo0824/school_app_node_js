@@ -12,7 +12,7 @@ const SchoolService = {
                         _id: inputEmail,
                         email: inputEmail
                     });
-                    return Student.findOneAndUpdate({ 'email': inputEmail }, student, { upsert: true, runValidators: true })
+                    return Student.findOneAndUpdate({ 'email': inputEmail }, student, { upsert: true, new: true, runValidators: true })
 
                 }).then(function (students) {
                     const newTeacher = new Teacher({
