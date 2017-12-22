@@ -65,15 +65,12 @@ const SchoolService = {
     },
 
     retrieveStudentsForNotification(teacherEmail, notification) {
-        var findMentionedStudents = new Promise(function (resolve, reject) {
-                const mentioned = notification.split(" ").filter(function (word) {
-                    return SchoolHelper.validateEmail(word);
-                });
-                resolve(mentioned);
-            }).then(function (mentioned) {
-                return Promise.map(mentioned, function (studentEmail) {
-                    return Student.findOne({ email: studentEmail })
-                })
+        const mentioned = notification.split(" ").filter(function (word) {
+            return SchoolHelper.validateEmail(word);
+        });
+
+        var findMentionedStudents = Promise.map(mentioned, function (studentEmail) {
+                return Student.findOne({ email: studentEmail })
             }).then(function (mentionedStudents) {
                 return SchoolHelper.mapNonSuspendedStudentsIntoEmails(mentionedStudents);
             });
