@@ -3,6 +3,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 var mongoose = require('mongoose');
+const DB_URL = require('../config/constants').DB_URL_TEST;
 
 var TeacherModel = require('../models/Teacher');
 var StudentModel = require('../models/Student');
@@ -13,7 +14,7 @@ describe("integration tests", function () {
 
     before(function (done) {
         mongoose.disconnect(function() {
-            mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
+            mongoose.connect(DB_URL, { useMongoClient: true });
             mongoose.connection.once('connected', () => {
                 done();
             }).on('error', function (error) {
@@ -23,7 +24,7 @@ describe("integration tests", function () {
     });
 
     after(function (done) {
-        mongoose.disconnect(function(done) {
+        mongoose.disconnect(function() {
             done();
         });
     });

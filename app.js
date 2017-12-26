@@ -4,11 +4,12 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
+const DB_URL = require('./config/constants').DB_URL_PROD;
 
 const app = express();
 
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://mongo:27017/school', { useMongoClient: true });
+mongoose.connect(DB_URL, { useMongoClient: true });
 mongoose.set('debug', true);
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 

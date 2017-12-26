@@ -2,13 +2,14 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const mongoose = require('mongoose');
+const DB_URL = require('../../config/constants').DB_URL_TEST;
 
 const StudentModel = require('../../models/Student');
 
 describe('student model', function () {
     before(function (done) {
         mongoose.disconnect(function() {
-            mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
+            mongoose.connect(DB_URL, { useMongoClient: true });
             mongoose.connection.once('connected', () => {
                 done();
             }).on('error', function (error) {
@@ -18,11 +19,11 @@ describe('student model', function () {
     });
 
     after(function (done) {
-        mongoose.disconnect(function(done) {
+        mongoose.disconnect(function() {
             done();
         });
     });
-    
+
     beforeEach(function (done) {
         StudentModel.remove({}, (err) => {
             done();
