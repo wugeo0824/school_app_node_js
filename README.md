@@ -14,6 +14,10 @@ docker-compose up
 docker exec -it {DOCKER_CONTAINER_ID} npm test
 ```
 
+## Play with end points
+1. Use something like Postman
+2. Send requests to 'localhost:3000/', e.g. POST to localhost:3000/api/retrieve
+
 ## Assumptions
 1. When registering the same teacher again, the new entry will override the old one.
 2. Each registerd teach will have at least one student.
