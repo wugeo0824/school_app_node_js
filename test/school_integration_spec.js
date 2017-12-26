@@ -12,17 +12,20 @@ mongoose.Promise = require('bluebird');
 describe("integration tests", function () {
 
     before(function (done) {
-        mongoose.disconnect();
-        mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
-        mongoose.connection.once('connected', () => {
-            done();
-        }).on('error', function (error) {
-            console.warn(error)
+        mongoose.disconnect(function() {
+            mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
+            mongoose.connection.once('connected', () => {
+                done();
+            }).on('error', function (error) {
+                console.warn(error)
+            });
         });
     });
 
-    after(function () {
-        mongoose.disconnect();
+    after(function (done) {
+        mongoose.disconnect(function(done) {
+            done();
+        });
     });
 
     afterEach(function (done) {

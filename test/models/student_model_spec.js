@@ -6,20 +6,23 @@ const mongoose = require('mongoose');
 const StudentModel = require('../../models/Student');
 
 describe('student model', function () {
-
     before(function (done) {
-        mongoose.disconnect();
-        mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
-        mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
-        mongoose.connection.once('connected', () => {
+        mongoose.disconnect(function() {
+            mongoose.connect('mongodb://mongo:27017/test', { useMongoClient: true });
+            mongoose.connection.once('connected', () => {
+                done();
+            }).on('error', function (error) {
+                console.warn(error)
+            });
+        });
+    });
+
+    after(function (done) {
+        mongoose.disconnect(function(done) {
             done();
-        })
+        });
     });
-
-    after(function () {
-        mongoose.disconnect();
-    });
-
+    
     beforeEach(function (done) {
         StudentModel.remove({}, (err) => {
             done();
