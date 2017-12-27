@@ -1,12 +1,13 @@
-var request = require('request');
-var chai = require('chai');
-var expect = chai.expect;
+const request = require('request');
+const chai = require('chai');
 
-var mongoose = require('mongoose');
+const { expect } = chai;
+
+const mongoose = require('mongoose');
 const DB_URL = require('../config/constants').DB_URL_TEST;
 
-var TeacherModel = require('../models/Teacher');
-var StudentModel = require('../models/Student');
+const TeacherModel = require('../models/teacher');
+const StudentModel = require('../models/student');
 
 mongoose.Promise = require('bluebird');
 
@@ -41,7 +42,7 @@ describe("integration tests", function () {
         const url = "http://localhost:3000/api/register";
 
         it("should return false if teacher param is blank", function (done) {
-            var req = { form: { students: ["student@email.com"] } };
+            const req = { form: { students: ["student@email.com"] } };
             request.post(url, req, function (error, response, body) {
                 expect(response.statusCode).to.equal(400);
                 expect(body).to.include.string('"success":false');
@@ -51,7 +52,7 @@ describe("integration tests", function () {
         });
 
         it("should return false if invalid teacher email", function (done) {
-            var req = { form: { teacher: "invalid email", students: ["student@email.com"] } };
+            const req = { form: { teacher: "invalid email", students: ["student@email.com"] } };
             request.post(url, req, function (error, response, body) {
                 expect(response.statusCode).to.equal(400);
                 expect(body).to.include.string('"success":false');
@@ -60,7 +61,7 @@ describe("integration tests", function () {
         });
 
         it("should return false if students param is blank", function (done) {
-            var req = { form: { teacher: "invalid email" } };
+            const req = { form: { teacher: "invalid email" } };
             request.post(url, req, function (error, response, body) {
                 expect(response.statusCode).to.equal(400);
                 expect(body).to.include.string('"success":false');
@@ -70,7 +71,7 @@ describe("integration tests", function () {
         });
 
         it("should return false if there are zero student emails", function (done) {
-            var req = { form: { teacher: "invalid email", students: [] } };
+            const req = { form: { teacher: "invalid email", students: [] } };
             request.post(url, req, function (error, response, body) {
                 expect(response.statusCode).to.equal(400);
                 expect(body).to.include.string('"success":false');

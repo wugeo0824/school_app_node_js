@@ -1,24 +1,26 @@
-module.exports = {
+const ResponseHelper = {
     badRequest(res, msg) {
         res.status(400)
             .json({
                 success: false,
-                message: msg
+                message: msg,
             });
     },
-    
+
     handleError(statusCode, err, res) {
         res.status(statusCode)
             .json({
                 success: false,
-                message: err.message
+                message: err.message,
             });
     },
 
     successWithJsonBody(res, body) {
         res.json({
             success: true,
-            body
-        })
-    }
-}
+            body,
+        });
+    },
+};
+
+module.exports = ResponseHelper;

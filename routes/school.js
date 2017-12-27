@@ -1,6 +1,7 @@
+const SchoolController = require('../controllers/SchoolController');
 const express = require('express');
+
 const router = express.Router();
-const SchoolController = require('../controllers/SchoolController')
 
 router.post('/register', SchoolController.Register);
 router.post('/retrieve', SchoolController.Retrieve);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const StudentSchema = new Schema({
     email: {
@@ -7,17 +8,17 @@ const StudentSchema = new Schema({
         lowercase: true,
         unique: true,
         required: [true, "student email can't be blank"],
-        match: [/\S+@\S+\.\S+/, "student email is invalid"],
+        match: [/\S+@\S+\.\S+/, 'student email is invalid'],
         index: true
     },
 
-    suspended: { type: Boolean, default: false }
+    suspended: { type: Boolean, default: false },
 
 }, { runSettersOnQuery: true });
 
 StudentSchema.methods.suspend = function () {
     this.suspended = true;
     return this.save();
-}
+};
 
 module.exports = mongoose.model('Student', StudentSchema);

@@ -12,10 +12,10 @@ const SchoolHelper = {
 
     filterSuspendedStudent(student) {
         if (student) {
-            return !student.suspended
+            return !student.suspended;
         }
         return false;
-    }
-}
+    },
+};
 
 module.exports = SchoolHelper;

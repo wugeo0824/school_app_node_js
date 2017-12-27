@@ -4,8 +4,8 @@ const expect = chai.expect;
 const mongoose = require('mongoose');
 const DB_URL = require('../../config/constants').DB_URL_TEST;
 
-const TeacherModel = require('../../models/Teacher');
-const StudentModel = require('../../models/Student');
+const TeacherModel = require('../../models/teacher');
+const StudentModel = require('../../models/student');
 
 describe('teacher model', function () {
 

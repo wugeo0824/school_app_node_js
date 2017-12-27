@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const TeacherSchema = new Schema({
     email: {
@@ -13,7 +14,7 @@ const TeacherSchema = new Schema({
 
     students: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
+        ref: 'Student',
     }],
 
 }, { runSettersOnQuery: true });
