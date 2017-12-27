@@ -1,93 +1,83 @@
-const Teacher = require('../models/Teacher');
-const Student = require('../models/Student');
-
-const SchoolHelper = require('../utils/SchoolHelper');
 const ResponseHelper = require('../utils/ResponseHelper');
-const badRequest = ResponseHelper.badRequest;
-const handleError = ResponseHelper.handleError;
-const successWithJsonBody = ResponseHelper.successWithJsonBody;
+const SchoolService = require('../services/SchoolService');
 
-const schoolService = require('../services/schoolservice');
-
-const Promise = require('bluebird');
+const { badRequest, handleError, successWithJsonBody } = ResponseHelper;
 
 const SchoolController = {
 
     Register(req, res) {
-        const teacherEmail = req.body.teacher;
-        const studentEmails = req.body.students;
+        const { teacher, students } = req.body;
 
-        if (!teacherEmail) {
+        if (!teacher) {
             badRequest(res, "teacher email can't be blank");
             return;
         }
 
-        if (!studentEmails || studentEmails.length < 1) {
-            badRequest(res, "must include at least one student email");
+        if (!students || students.length < 1) {
+            badRequest(res, 'must include at least one student email');
             return;
         }
 
-        schoolService.insertOrUpdateTeacherWithStudents(studentEmails, teacherEmail)
-            .then(function (teacher) {
+        SchoolService.insertOrUpdateTeacherWithStudents(students, teacher)
+            .then((teacher) => {
                 successWithJsonBody(res);
-            }).catch(function (err) {
+            }).catch((err) => {
                 handleError(400, err, res);
             });
     },
 
     Retrieve(req, res) {
-        const teacherEmail = req.body.email;
+        const { email } = req.body;
 
-        if (!teacherEmail) {
+        if (!email) {
             badRequest(res, "teacher email can't be blank");
             return;
         }
 
-        schoolService.retrieveStudentsUnderTeacher(teacherEmail)
-            .then(function (resultEmails) {
+        SchoolService.retrieveStudentsUnderTeacher(email)
+            .then((resultEmails) => {
                 successWithJsonBody(res, { students: resultEmails });
-            }).catch(function (err) {
+            }).catch((err) => {
                 handleError(400, err, res);
             });
     },
 
     CommonStudents(req, res) {
-        const teachers = req.body.teachers;
+        const { teachers } = req.body;
 
-        if (!teachers || teachers.length != 2 || teachers[0] == teachers[1]) {
-            badRequest(res, "two different teacher emails are needed");
+        if (!teachers || teachers.length !== 2 || teachers[0] === teachers[1]) {
+            badRequest(res, 'two different teacher emails are needed');
             return;
         }
 
-        schoolService.findCommonStudentsBetweenTwoTeachers(teachers[0], teachers[1])
-            .then(function (commonList) {
+        SchoolService.findCommonStudentsBetweenTwoTeachers(teachers[0], teachers[1])
+            .then((commonList) => {
                 successWithJsonBody(res, { students: commonList });
-            }).catch(function (err) {
+            }).catch((err) => {
                 handleError(400, err, res);
             });
     },
 
     Suspend(req, res) {
-        const studentEmail = req.body.student;
+        const { student } = req.body;
 
-        if (!studentEmail) {
+        if (!student) {
             badRequest(res, "student email can't be blank");
             return;
         }
 
-        schoolService.suspendStudent(studentEmail)
-            .then(function () {
+        SchoolService.suspendStudent(student)
+            .then((student) => {
                 successWithJsonBody(res);
-            }).catch(function (err) {
+            }).catch((err) => {
                 handleError(400, err, res);
             });
     },
 
     RetrieveForNotifications(req, res) {
-        const teacherEmail = req.body.teacher;
-        const notification = req.body.notification;
+        const { teacher, notification } = req.body;
 
-        if (!teacherEmail) {
+        if (!teacher) {
             badRequest(res, "teacher email can't be blank");
             return;
         }
@@ -97,13 +87,13 @@ const SchoolController = {
             return;
         }
 
-        schoolService.retrieveStudentsForNotification(teacherEmail, notification)
-            .then(function (uniqueStudents) {
+        SchoolService.retrieveStudentsForNotification(teacher, notification)
+            .then((uniqueStudents) => {
                 successWithJsonBody(res, { students: uniqueStudents });
-            }).catch(function (err) {
+            }).catch((err) => {
                 handleError(400, err, res);
             });
-    }
-}
+    },
+};
 
-module.exports = SchoolController
+module.exports = SchoolController;
