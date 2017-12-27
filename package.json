@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "dev": "nodemon -L ./bin/www",
     "test": "mocha --recursive"
   },
   "dependencies": {
@@ -20,6 +20,11 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "mocha": "^4.0.1",
     "request": "^2.83.0",
     "sinon": "^4.1.3"
