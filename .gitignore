@@ -62,3 +62,6 @@ data
 
 # tmp
 .tmp
+
+# VSCode
+.vscode
