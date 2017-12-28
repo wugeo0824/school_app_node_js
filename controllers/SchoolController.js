@@ -19,7 +19,7 @@ const SchoolController = {
         }
 
         SchoolService.insertOrUpdateTeacherWithStudents(students, teacher)
-            .then((teacher) => {
+            .then(() => {
                 successWithJsonBody(res);
             }).catch((err) => {
                 handleError(400, err, res);
@@ -67,7 +67,7 @@ const SchoolController = {
         }
 
         SchoolService.suspendStudent(student)
-            .then((student) => {
+            .then(() => {
                 successWithJsonBody(res);
             }).catch((err) => {
                 handleError(400, err, res);
